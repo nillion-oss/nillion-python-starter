@@ -1,12 +1,16 @@
 from nada_dsl import *
 
-
 def nada_main():
-    party1 = Party(name="Party1")
-    my_int1 = SecretInteger(Input(name="my_int1", party=party1))
-    my_int2 = SecretInteger(Input(name="my_int2", party=party1))
-
-    # write the computation for your program here - use my_int1 and my_int2 as inputs
-    # make sure you change the output below to be your new output
-
-    return [Output(my_int1, "my_output", party1)]
+    # Define parties
+    setter = Party(name="Setter")
+    guesser = Party(name="Guesser")
+    
+    # Define inputs
+    secret_number = SecretInteger(Input(name="secret_number", party=setter))
+    guessed_number = SecretInteger(Input(name="guessed_number", party=guesser))
+    
+    # Logic to check if guess is correct
+    is_correct = secret_number == guessed_number
+    
+    # Output the result
+    return [Output(is_correct, "guess_result", guesser)]
